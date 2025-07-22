@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+pandas
+pydantic
+python-multipart
+httpx
+aiofiles
+loguru
+apscheduler
+requests
