@@ -6,10 +6,24 @@ from app.utils.logger import get_logger
 
 logger = get_logger(__name__)
 
-router = APIRouter(prefix="/movies", tags=["Movies"])
+router = APIRouter(
+    prefix="/movies",
+    tags=["Movies"]
+)
 
-@router.post("/search", response_model=MovieSearchResponsePaginated)
-def get_searched_movies(query: MovieSearchQuery, _: None = Depends(verify_token)):
+@router.post(
+    "/search",
+    response_model=MovieSearchResponsePaginated,
+    summary="Search movies",
+    description="Search for movies by title, genre, tags, rating, and more. Requires authentication."
+)
+def search_movies_handler(
+    query: MovieSearchQuery,
+    _: None = Depends(verify_token)
+) -> MovieSearchResponsePaginated:
+    """
+    Handles the /movies/search endpoint. Auth token required.
+    """
     try:
         return search_movies(query)
     except Exception as e:
